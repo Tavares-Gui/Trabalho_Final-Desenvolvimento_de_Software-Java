@@ -1,12 +1,11 @@
-package model.persistence.persistence;
+package model.persistence;
 
 import java.io.*;
 import java.util.ArrayList;
 
-import model.persistence.entities.Show;
+import model.entities.Show;
 
 public class GerenciadorArquivo {
-
     private static final String FILENAME = "shows.dat";
 
     public static void criarArquivoSeNaoExistir() throws IOException {
@@ -18,6 +17,9 @@ public class GerenciadorArquivo {
 
     @SuppressWarnings("unchecked")
     public static void lerArquivo(ArrayList<Show> listaShows) throws IOException, ClassNotFoundException {
+        if (new File(FILENAME).length() == 0) {
+            return; // arquivo vazio
+        }
         FileInputStream fis = new FileInputStream(FILENAME);
         ObjectInputStream ois = new ObjectInputStream(fis);
         listaShows.addAll((ArrayList<Show>) ois.readObject());
@@ -29,9 +31,5 @@ public class GerenciadorArquivo {
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(listaShows);
         oos.close();
-    }
-
-    public static void salvandoShow(ArrayList<Show> listaShows) throws IOException {
-        salvarShowNoArquivo(listaShows);
     }
 }

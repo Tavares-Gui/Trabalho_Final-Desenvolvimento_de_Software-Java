@@ -1,8 +1,8 @@
 package model.entities;
+
 import java.util.ArrayList;
 
 public class ListaShow implements GerenciadorDeShow {
-
     private static ArrayList<Show> listaShows = new ArrayList<>();
 
     @Override
@@ -24,7 +24,7 @@ public class ListaShow implements GerenciadorDeShow {
 
     @Override
     public Show buscarShow(String nomeTurne) throws Exception {
-        for(Show tempShow : listaShows) {
+        for (Show tempShow : listaShows) {
             if (tempShow.getNomeTurne().contains(nomeTurne)) {
                 return tempShow;
             }

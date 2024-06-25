@@ -1,6 +1,8 @@
-package model.persistence.entities;
+package model.entities;
 
-public class Show {
+import java.io.Serializable;
+
+public class Show implements Serializable {
     private String nomeTurne;
     private String cantor;
 

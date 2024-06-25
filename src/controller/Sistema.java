@@ -9,11 +9,10 @@ import model.persistence.GerenciadorArquivo;
 import view.Console;
 
 public class Sistema {
-
     private static GerenciadorDeShow gerenciador = new ListaShow();
 
     static ArrayList<Show> listaShows = gerenciador.getListaShows();
-   
+
     public static void executarSistema() {
         carregarDadosDoArquivo();
 
@@ -60,26 +59,25 @@ public class Sistema {
                 System.out.println("\nO Sistema foi finalizado...\n");
                 System.exit(0);
                 break;
-        
+
             default:
                 System.out.println("\nOpção inválida. Digite novamente.");
                 break;
         }
     }
-    
+
     private static void atualizarShow() {
         try {
             gerenciador.verificarListaVazia();
-            System.out.println("\nInforme o nome da turnê que deseja atualizar:");
             String nomeTurne = Console.lerString("Nome da Turnê");
             Show tempShow = gerenciador.buscarShow(nomeTurne);
-            System.out.println("\nShow Localizado:" + tempShow.exibirDados() + "\nInforme novos dados:\n");
+            System.out.println("\nShow Localizado: " + tempShow.exibirDados() + "\nInforme novos dados:");
             nomeTurne = Console.lerString("Novo nome da turnê");
             String cantor = Console.lerString("Novo cantor");
             tempShow.setNomeTurne(nomeTurne);
             tempShow.setCantor(cantor);
             GerenciadorArquivo.salvarShowNoArquivo(listaShows);
-            System.out.println("\nShow atualizado com sucesso:" + tempShow.exibirDados());
+            System.out.println("\nShow atualizado com sucesso: " + tempShow.exibirDados());
         } catch (Exception exception) {
             System.out.println(exception.getMessage());
         }
@@ -101,7 +99,7 @@ public class Sistema {
         Show show = new Show(nomeTurne, cantor);
         try {
             gerenciador.salvarShow(show);
-            GerenciadorArquivo.salvandoShow(listaShows);
+            GerenciadorArquivo.salvarShowNoArquivo(listaShows); // Aqui foi feita a alteração
             System.out.println("\nShow foi salvo no arquivo!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -112,7 +110,7 @@ public class Sistema {
         try {
             gerenciador.verificarListaVazia();
             System.out.println("\nShows Cadastrados");
-            for(Show tempShow : listaShows) {
+            for (Show tempShow : listaShows) {
                 System.out.println(tempShow.exibirDados());
             }
         } catch (Exception e) {
@@ -123,11 +121,10 @@ public class Sistema {
     private static void buscarShow() {
         try {
             gerenciador.verificarListaVazia();
-            System.out.println("\nBuscar show por nome da turnê.");
             String nomeTurne = Console.lerString("Informe o nome da turnê");
             Show tempShow = gerenciador.buscarShow(nomeTurne);
-            System.out.println("\nShow encontrado:" + tempShow.exibirDados());
-        } catch (Exception e){
+            System.out.println("\nShow encontrado: " + tempShow.exibirDados());
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -135,8 +132,7 @@ public class Sistema {
     private static void apagarShow() {
         try {
             gerenciador.verificarListaVazia();
-            System.out.println("\nInforme a turnê que deseja excluir:");
-            String nomeTurne = Console.lerString("Nome da Turnê");
+            String nomeTurne = Console.lerString("Informe o nome da turnê");
             Show tempShow = gerenciador.buscarShow(nomeTurne);
             gerenciador.apagarShow(tempShow);
             GerenciadorArquivo.salvarShowNoArquivo(listaShows);
